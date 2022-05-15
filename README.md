@@ -19,5 +19,6 @@ For testing purposes
 2. Then inside the test runner you can select the test to run or run all tests together.
 3. Keep in mind to run the tests both servers must be running as well (flask and localhost).
 4. Specifically for the password manager tests facial authentication is required, so please register your facial ID as well.
+5. 5. Please feel free to comment out the Idle Timer omponent from the _app.js file to avoid any inconvenience during the tests. (Not necessary)
 
 Thank you!
