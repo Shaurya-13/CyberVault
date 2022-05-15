@@ -1,0 +1,56 @@
+/// <reference types="cypress" />
+
+beforeEach(()=>{
+    cy.viewport(1920,1080)
+  })
+
+context('Before Login, Navigation bar should have Login/Register link and Home page should render with all components',()=>{
+    it('It should have the Login/Register Link',()=>{    
+        cy.visit('/')
+        cy.findByRole('link', {  name: /log\-in\/register/i})
+        cy.get('#responsive-navbar-nav > .mr-2').realHover().should('be.visible')
+        cy.get('.navbar-expand-lg')
+        cy.get('.rounded-circle').should('be.visible')
+        cy.get('.mx-2').contains('CyberVault').click().url().should('include', '/')
+        cy.get('.Home_container__bCOhY > .navbar').should('contain.text','Welcome to CyberVault')
+        cy.get('.Home_img__Xgkmt').should('be.visible')
+        cy.get('[src="/face.png"]').should('be.visible')
+        cy.get('[src="/pass.jpg"]').should('be.visible')
+        cy.findByText(  /the ultimate one\-stop secure solution to all your password managerial concerns/i  )
+    })
+})
+
+context('After Login, Navigation bar should update and Home page should render with all components',()=>{
+    it('It should Login and the navigation bar should be updated according to user session',()=>{    
+        cy.visit('/')
+        cy.findByRole('link', {  name: /log\-in\/register/i}).click()
+        cy.visit('/')
+        cy.get('.navbar-expand-lg')
+        cy.get('[href="api/auth/logout"]').contains('Log-Out')
+        cy.get('.rounded-circle').should('be.visible')
+        cy.get('.mx-2').contains('CyberVault').click().url().should('include', '/')
+        cy.findByRole('heading', {  name: /welcome to cybervault/i})
+        cy.get('.Home_img__Xgkmt').should('be.visible')
+        cy.get('[src="/face.png"]').should('be.visible')
+        cy.get('[src="/pass.jpg"]').should('be.visible')
+        cy.findByText(  /the ultimate one\-stop secure solution to all your password managerial concerns/i  )
+    })
+    it('Should have working navigational links for all functionality pages',()=>{
+        cy.visit('/')
+        cy.get('[href="/faceReg"]').contains('Register Face').click()
+        cy.url().should('include', '/faceReg')
+        cy.visit('/')
+        cy.get('[href="/dashboard"]').contains('Manager').click()
+        cy.url().should('include', '/dashboard') 
+        cy.visit('/')
+        cy.get('[href="/generator"]').contains('Generator').click()
+        cy.url().should('include', '/generator') 
+        cy.visit('/')
+        cy.get('[href="/analyser"]').contains('Strength Analyser').click()
+        cy.url().should('include', '/analyser')
+        cy.visit('/')
+        cy.get('[href="/distinctor"]').contains('Distinctor').click()
+        cy.url().should('include', '/distinctor')
+        cy.visit('/')
+    })
+})

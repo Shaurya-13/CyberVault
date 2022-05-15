@@ -1,0 +1,43 @@
+/// <reference types="cypress" />
+
+context('End to End test for the home page including the login process and the dynamic updating of the navbar consequently',()=>{
+    it('Should conduct an End to End test on the home page before login and after login to test the dynamic navbar update and all of its components including testing the navigation bar\'s all navigation links',()=>{
+        cy.viewport(1920,1080)
+        cy.visit('/')
+        //Testing the rendering of all components
+        cy.findByRole('link', {  name: /log\-in\/register/i})
+        cy.get('#responsive-navbar-nav > .mr-2').realHover().should('be.visible')
+        cy.get('.navbar-expand-lg')
+        cy.get('.rounded-circle').should('be.visible')
+        cy.get('.mx-2').contains('CyberVault').click().url().should('include', '/')
+        cy.get('.Home_container__bCOhY > .navbar').should('contain.text','Welcome to CyberVault')
+        cy.get('.Home_img__Xgkmt').should('be.visible')
+        cy.get('[src="/face.png"]').should('be.visible')
+        cy.get('[src="/pass.jpg"]').should('be.visible')
+        cy.findByText(  /the ultimate one\-stop secure solution to all your password managerial concerns/i  )
+        //Testing updated Navigation bar
+        cy.get('.navbar-expand-lg')
+        cy.get('[href="api/auth/logout"]').contains('Log-Out')
+        cy.get('.rounded-circle').should('be.visible')
+        cy.get('.mx-2').contains('CyberVault').click().url().should('include', '/')
+        cy.get('.Home_img__Xgkmt').should('be.visible')
+        cy.get('[src="/face.png"]').should('be.visible')
+        cy.get('[src="/pass.jpg"]').should('be.visible')
+        //Testing all navigation links work
+        cy.get('[href="/faceReg"]').contains('Register Face').click()
+        cy.url().should('include', '/faceReg')
+        cy.visit('/')
+        cy.get('[href="/dashboard"]').contains('Manager').click()
+        cy.url().should('include', '/dashboard') 
+        cy.visit('/')
+        cy.get('[href="/generator"]').contains('Generator').click()
+        cy.url().should('include', '/generator') 
+        cy.visit('/')
+        cy.get('[href="/analyser"]').contains('Strength Analyser').click()
+        cy.url().should('include', '/analyser')
+        cy.visit('/')
+        cy.get('[href="/distinctor"]').contains('Distinctor').click()
+        cy.url().should('include', '/distinctor')
+        cy.visit('/')
+    })
+})
