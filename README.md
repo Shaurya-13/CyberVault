@@ -19,3 +19,5 @@ For testing purposes
 2. Then inside the test runner you can select the test to run or run all tests together.
 3. Keep in mind to run the tests both servers must be running as well (flask and localhost).
 4. Specifically for the password manager tests facial authentication is required, so please register your facial ID as well.
+
+Thank you!
