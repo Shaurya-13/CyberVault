@@ -1,0 +1,19 @@
+# Database for back-end
+sqlite3
+
+#Server for back-end
+flask
+
+#for webcam related manipulation - openCV
+cv2
+
+#for mathematical computations
+numpy
+
+#for system directory related operations
+os
+
+#most important for facial registration and recognition process
+face_recognition
+
+# to install face recognition, dlib needs to be isntalled first which can be compiled using the CMake tool and visual studio

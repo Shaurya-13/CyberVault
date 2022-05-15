@@ -7,7 +7,6 @@ import os
 from mysql import *
 import mysql.connector as connector
 import face_recognition as face
-from dbCreds import defaultSettings
 
 # basic flask server configuration to work with the react app
 app=Flask(__name__)
