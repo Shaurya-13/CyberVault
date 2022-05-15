@@ -21,4 +21,6 @@ For testing purposes
 4. Specifically for the password manager tests facial authentication is required, so please register your facial ID as well.
 5. Please feel free to comment out the Idle Timer component from the _app.js file to avoid any inconvenience during the tests. (Not necessary)
 
+*Future Implementation code has also been added in issues to have a look with a demo screenshot of its GUI implementation!
+
 Thank you!
