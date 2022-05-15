@@ -59,10 +59,14 @@ def faceRegistration():
     # using prepared-parameterized query statements to avoid SQL injection added with input validation on front-end (next)
     query="""INSERT INTO registeredFaces VALUES(?,?)""" 
     registrationName=request.args.get("name")
+    # Grabbing a single frame of video form webcam
     faceCapture=cam.VideoCapture(0)
     ret,frame=faceCapture.read()
+    # Resizing the frame of video to 1/4th size for faster face recognition processing
     smFrame=cam.resize(frame,(0,0),fx=0.25,fy=0.25)
+    # Convert the frame image from BGR color (OpenCV compatible) to RGB color (face_recognition compatible)
     rgbSmFrame=smFrame[:,:,::-1]
+    # detecting all the faces and computing face encodings in the current frame
     faceLocations=face.face_locations(rgbSmFrame)
     faceEncodingvalues=face.face_encodings(rgbSmFrame,faceLocations)
     if(faceEncodingvalues==[]):
@@ -123,9 +127,11 @@ def faceValidation():
             message="Not in the system"
         else:
             for faceEncodedValue in faceEncodingValues:
+                # Comparing the encodings
                 matches=face.compare_faces(identifiedFaceEncodings,faceEncodedValue)
                 name="Unknown"
                 faceDistances=face.face_distance(identifiedFaceEncodings,faceEncodedValue)
+                # using the known face with the smallest distance to the new face
                 bestMatch=py.argmin(faceDistances)
                 if matches[bestMatch]:
                     name=identifiedFaceNames[bestMatch]
@@ -134,6 +140,7 @@ def faceValidation():
                 else:
                     message=name
                 faceNames.append(name)
+            #Creating a rectangluar boundary and setting its text label and color according to the name recognized for the frame
             for(top,right,bottom,left), name in zip(faceLocations,faceNames):
                 top=top*4
                 right=right*4
